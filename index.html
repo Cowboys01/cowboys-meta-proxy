@@ -171,7 +171,7 @@ async function createCampaign() {
   const now = new Date();
   const monthYear = now.toLocaleDateString('nl-NL', { month: 'short', year: 'numeric' });
   const campName = 'Cowboys | ' + vtitle + (vcompany ? ' | ' + vcompany : '') + ' | ' + monthYear;
-  const startTime = Math.floor(Date.now() / 1000);
+const startTime = Math.floor(Date.now() / 1000) + 600;
 
   const headline = vtitle.length > 35 ? vtitle.substring(0, 35) + '...' : vtitle + ' gezocht!';
   const body = 'Kom werken bij ' + (vcompany || 'ons') + ' als ' + vtitle + '. Solliciteer nu!';
