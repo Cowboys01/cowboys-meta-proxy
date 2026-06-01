@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="nl">
 <head>
 <meta charset="UTF-8"/>
@@ -184,7 +185,7 @@ async function createCampaign() {
     btn.innerHTML = '<div class="ring"></div> Campagne aanmaken...';
     const camp = await metaCall(acc + '/campaigns', {
       name: campagneName,
-      objective: 'LEAD_GENERATION',
+      objective: 'LINK_CLICKS',
       status: 'PAUSED',
       special_ad_categories: ['EMPLOYMENT'],
       access_token: token
@@ -196,6 +197,7 @@ async function createCampaign() {
     btn.innerHTML = '<div class="ring"></div> Adset instellen...';
     const adset = await metaCall(acc + '/adsets', {
       name: campagneName + ' | Adset',
+      
       campaign_id: camp.id,
       daily_budget: 3300,
       billing_event: 'IMPRESSIONS',
