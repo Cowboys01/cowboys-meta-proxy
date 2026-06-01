@@ -184,7 +184,7 @@ async function createCampaign() {
     btn.innerHTML = '<div class="ring"></div> Campagne aanmaken...';
     const camp = await metaCall(acc + '/campaigns', {
       name: campagneName,
-      objective: 'OUTCOME_LEADS',
+      objective: 'LEAD_GENERATION',
       status: 'PAUSED',
       special_ad_categories: ['EMPLOYMENT'],
       access_token: token
