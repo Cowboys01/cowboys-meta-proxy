@@ -1,30 +1,37 @@
-export default async function handler(req, res) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+export const config = { runtime: 'edge' };
+
+export default async function handler(req) {
+  const corsHeaders = {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type',
+  };
 
   if (req.method === 'OPTIONS') {
-    return res.status(200).end();
+    return new Response(null, { status: 200, headers: corsHeaders });
   }
 
-  const { endpoint, ...body } = req.body || {};
-
-  if (!endpoint) {
-    return res.status(200).json({ status: 'ok' });
+  if (req.method === 'GET') {
+    return new Response(JSON.stringify({ status: 'ok' }), {
+      status: 200, headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+    });
   }
 
   try {
-    const url = new URL(`https://graph.facebook.com/v19.0/${endpoint}`);
-    
-    const metaRes = await fetch(url.toString(), {
+    const body = await req.json();
+    const { endpoint, ...rest } = body;
+
+    if (!endpoint) {
+      return new Response(JSON.stringify({ status: 'ok' }), {
+        status: 200, headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+      });
+    }
+
+    const metaRes = await fetch(`https://graph.facebook.com/v19.0/${endpoint}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body)
+      body: JSON.stringify(rest)
     });
 
     const data = await metaRes.json();
-    return res.status(200).json(data);
-  } catch(e) {
-    return res.status(200).json({ error: e.message });
-  }
-}
+    return new Resp
