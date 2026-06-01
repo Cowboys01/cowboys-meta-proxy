@@ -25,6 +25,6 @@ export default async function handler(req) {
     const data = await r.json();
     return new Response(JSON.stringify(data), { status: 200, headers });
   } catch(e) {
-    return new Response(JSON.stringify({ error: e.message }), { status: 200, headers });
+    return new Response(JSON.stringify({ error: e.message, stack: e.stack }), { status: 200, headers });
   }
 }
