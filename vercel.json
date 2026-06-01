@@ -1,6 +1,11 @@
 {
+  "outputDirectory": ".",
+  "builds": [
+    { "src": "api/meta.js", "use": "@vercel/node" },
+    { "src": "index.html", "use": "@vercel/static" }
+  ],
   "routes": [
     { "src": "/api/meta", "dest": "/api/meta.js" },
-    { "src": "/(.*)", "dest": "/$1" }
+    { "src": "/", "dest": "/index.html" }
   ]
 }
