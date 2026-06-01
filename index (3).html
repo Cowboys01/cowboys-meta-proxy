@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Cowboys — Meta Campagne Tool</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@300;400;500&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--brand:#FF4D00;--dark:#0f0f0f;--mid:#6b6b6b;--light:#f5f4f0;--border:rgba(0,0,0,0.1);--white:#fff;--success:#00A86B;--r:12px}
+body{font-family:'Inter',sans-serif;background:var(--light);color:var(--dark);min-height:100vh}
+.hdr{background:var(--dark);padding:18px 32px;display:flex;align-items:center}
+.logo{font-family:'Syne',sans-serif;font-weight:800;font-size:20px;color:var(--brand)}
+.logo-sub{font-size:11px;color:rgba(255,255,255,0.4);margin-top:2px}
+.badge{margin-left:auto;background:#1877F2;color:#fff;font-size:11px;font-weight:600;padding:5px 12px;border-radius:20px}
+.wrap{padding:40px 32px;max-width:600px;margin:0 auto}
+.title{font-family:'Syne',sans-serif;font-size:26px;font-weight:800;margin-bottom:6px;letter-spacing:-.5px}
+.sub{font-size:14px;color:var(--mid);margin-bottom:32px;font-weight:300}
+.card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:24px;margin-bottom:16px}
+.card-title{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;margin-bottom:16px;color:var(--dark)}
+label{display:block;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:var(--mid);margin-bottom:6px}
+input{width:100%;background:var(--white);border:1px solid var(--border);border-radius:8px;padding:11px 14px;font-family:'Inter',sans-serif;font-size:14px;color:var(--dark);outline:none;transition:border-color .2s}
+input:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(255,77,0,.08)}
+input[type=password]{letter-spacing:3px}
+.tp{position:relative}
+.tp input{padding-right:40px}
+.tp button{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:16px;color:var(--mid);padding:0}
+.fields{display:flex;flex-direction:column;gap:14px}
+.btn{width:100%;padding:16px;background:var(--brand);color:#fff;border:none;border-radius:var(--r);font-family:'Syne',sans-serif;font-size:17px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;margin-top:8px;transition:all .2s;letter-spacing:.3px}
+.btn:hover{background:#e04400;transform:translateY(-1px)}
+.btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.ring{width:18px;height:18px;border:2.5px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:sp .8s linear infinite;display:inline-block}
+@keyframes sp{to{transform:rotate(360deg)}}
+.wb{background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:12px 14px;font-size:12px;color:#92400e;margin-bottom:16px;display:flex;gap:8px;line-height:1.5;align-items:flex-start}
+.eb{background:#fff0f0;border:1px solid #ffc0c0;border-radius:8px;padding:14px;font-size:13px;color:#c00;margin-top:14px;line-height:1.6}
+.sb{background:#f0fdf4;border:1px solid #86efac;border-radius:8px;padding:16px;font-size:13px;color:#166534;margin-top:14px;line-height:1.8}
+.sb a{color:#1877F2;font-weight:600;text-decoration:none}
+.sb a:hover{text-decoration:underline}
+.spec{background:var(--light);border-radius:8px;padding:12px 14px;font-size:12px;color:var(--mid);margin-top:16px;line-height:1.8}
+.spec strong{color:var(--dark)}
+.steps{display:flex;flex-direction:column;gap:6px;margin-top:14px}
+.step{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--mid)}
+.step-dot{width:8px;height:8px;border-radius:50%;background:var(--border);flex-shrink:0}
+.step.active .step-dot{background:var(--brand)}
+.step.done .step-dot{background:var(--success)}
+.step.active{color:var(--dark);font-weight:500}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div>
+    <div class="logo">Cowboys</div>
+    <div class="logo-sub">Meta Campagne Tool</div>
+  </div>
+  <div class="badge">f Meta Marketing API</div>
+</div>
+
+<div class="wrap">
+  <div class="title">Campagne aanmaken</div>
+  <div class="sub">Vul de vacature URL in — de rest doet Cowboys automatisch.</div>
+
+  <div class="card">
+    <div class="card-title">🔑 Meta credentials</div>
+    <div class="wb">🔒 <span>Worden alleen lokaal gebruikt — nooit opgeslagen of gedeeld.</span></div>
+    <div class="fields">
+      <div>
+        <label>Access Token</label>
+        <div class="tp">
+          <input type="password" id="tok" placeholder="EAAxxxxx..." autocomplete="off"/>
+          <button onclick="document.getElementById('tok').type=document.getElementById('tok').type==='password'?'text':'password'" type="button">👁</button>
+        </div>
+      </div>
+      <div>
+        <label>Ad Account ID</label>
+        <input type="text" id="acc" placeholder="act_120217690708190112"/>
+      </div>
+      <div>
+        <label>Facebook Pagina ID</label>
+        <input type="text" id="pid" placeholder="113111090540034"/>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">📋 Vacature</div>
+    <div class="fields">
+      <div>
+        <label>Vacature URL</label>
+        <input type="url" id="vurl" placeholder="https://bedrijf.nl/vacature/functie"/>
+      </div>
+      <div>
+        <label>Functietitel</label>
+        <input type="text" id="vtitle" placeholder="bijv. Installatiemonteur"/>
+      </div>
+      <div>
+        <label>Bedrijfsnaam</label>
+        <input type="text" id="vcompany" placeholder="bijv. ASSA ABLOY"/>
+      </div>
+    </div>
+
+    <div class="spec">
+      <strong>Campagne instellingen (automatisch):</strong><br>
+      Doel: Leads · Budget: €33/dag · Doelgroep: NL, 18-65 · Special ad category: Werkgelegenheid
+    </div>
+  </div>
+
+  <button class="btn" onclick="createCampaign()" id="main-btn">
+    🚀 Campagne aanmaken in Meta
+  </button>
+
+  <div id="steps" style="display:none" class="card" style="margin-top:16px">
+    <div class="card-title">Voortgang</div>
+    <div class="steps">
+      <div class="step" id="step1"><div class="step-dot"></div> Vacature analyseren</div>
+      <div class="step" id="step2"><div class="step-dot"></div> Campagne aanmaken</div>
+      <div class="step" id="step3"><div class="step-dot"></div> Adset instellen</div>
+      <div class="step" id="step4"><div class="step-dot"></div> Advertentie maken</div>
+      <div class="step" id="step5"><div class="step-dot"></div> Publiceren</div>
+    </div>
+  </div>
+
+  <div id="msg"></div>
+</div>
+
+<script>
+const PROXY = '/api/meta';
+
+async function metaCall(endpoint, body) {
+  const res = await fetch(PROXY, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ endpoint, ...body })
+  });
+  if (!res.ok) throw new Error('HTTP ' + res.status);
+  return res.json();
+}
+
+function setStep(n) {
+  for (let i = 1; i <= 5; i++) {
+    const el = document.getElementById('step' + i);
+    if (i < n) el.className = 'step done';
+    else if (i === n) el.className = 'step active';
+    else el.className = 'step';
+  }
+}
+
+function msg(type, html) {
+  document.getElementById('msg').innerHTML = html ? `<div class="${type}">${html}</div>` : '';
+}
+
+async function createCampaign() {
+  const token = document.getElementById('tok').value.trim();
+  const acc = document.getElementById('acc').value.trim();
+  const pid = document.getElementById('pid').value.trim();
+  const vurl = document.getElementById('vurl').value.trim();
+  const vtitle = document.getElementById('vtitle').value.trim();
+  const vcompany = document.getElementById('vcompany').value.trim();
+
+  if (!token || !acc || !pid) { msg('eb', 'Vul token, account ID en pagina ID in.'); return; }
+  if (!vurl || !vtitle) { msg('eb', 'Vul de vacature URL en functietitel in.'); return; }
+
+  const btn = document.getElementById('main-btn');
+  btn.disabled = true;
+  document.getElementById('steps').style.display = 'block';
+  msg('', '');
+
+  const campagneName = `Cowboys | ${vtitle}${vcompany ? ' | ' + vcompany : ''} | ${new Date().toLocaleDateString('nl-NL', {month:'short', year:'numeric'})}`;
+  const today = Math.floor(Date.now() / 1000);
+
+  try {
+    // Stap 1: Teksten samenstellen
+    setStep(1);
+    btn.innerHTML = '<div class="ring"></div> Vacature analyseren...';
+    await new Promise(r => setTimeout(r, 500));
+    const ad = {
+      headline: vtitle.length > 37 ? vtitle.substring(0,37)+'...' : vtitle + ' gezocht!',
+      body: `Kom werken bij ${vcompany || 'ons bedrijf'} als ${vtitle}. Solliciteer nu!`,
+      description: 'Bekijk de vacature'
+    };
+
+    // Stap 2: Campagne
+    setStep(2);
+    btn.innerHTML = '<div class="ring"></div> Campagne aanmaken...';
+    const camp = await metaCall(acc + '/campaigns', {
+      name: campagneName,
+      objective: 'OUTCOME_LEADS',
+      status: 'PAUSED',
+      special_ad_categories: ['EMPLOYMENT'],
+      access_token: token
+    });
+    if (camp.error) throw new Error(camp.error.message);
+
+    // Stap 3: Adset
+    setStep(3);
+    btn.innerHTML = '<div class="ring"></div> Adset instellen...';
+    const adset = await metaCall(acc + '/adsets', {
+      name: campagneName + ' | Adset',
+      campaign_id: camp.id,
+      daily_budget: 3300,
+      billing_event: 'IMPRESSIONS',
+      optimization_goal: 'LEAD_GENERATION',
+      targeting: {
+        geo_locations: { countries: ['NL'] },
+        age_min: 18,
+        age_max: 65
+      },
+      status: 'PAUSED',
+      start_time: today,
+      access_token: token
+    });
+    if (adset.error) throw new Error(adset.error.message);
+
+    // Stap 4: Creative
+    setStep(4);
+    btn.innerHTML = '<div class="ring"></div> Advertentie maken...';
+    const creative = await metaCall(acc + '/adcreatives', {
+      name: 'Creative | ' + vtitle,
+      object_story_spec: {
+        page_id: pid,
+        link_data: {
+          message: ad.body,
+          link: vurl,
+          name: ad.headline,
+          description: ad.description,
+          call_to_action: { type: 'APPLY_NOW' }
+        }
+      },
+      access_token: token
+    });
+    if (creative.error) throw new Error(creative.error.message);
+
+    // Stap 5: Ad
+    setStep(5);
+    btn.innerHTML = '<div class="ring"></div> Publiceren...';
+    const adResult = await metaCall(acc + '/ads', {
+      name: ad.headline,
+      adset_id: adset.id,
+      creative: { creative_id: creative.id },
+      status: 'PAUSED',
+      access_token: token
+    });
+    if (adResult.error) throw new Error(adResult.error.message);
+
+    setStep(6);
+    btn.style.background = 'var(--success)';
+    btn.innerHTML = '✓ Campagne aangemaakt!';
+
+    msg('sb', `
+      <strong>✓ Campagne staat klaar in Meta!</strong><br><br>
+      <strong>Naam:</strong> ${campagneName}<br>
+      <strong>Campagne ID:</strong> ${camp.id}<br>
+      <strong>Adset ID:</strong> ${adset.id}<br>
+      <strong>Ad ID:</strong> ${adResult.id}<br>
+      <strong>Budget:</strong> €33/dag · Gepauzeerd<br><br>
+      <a href="https://business.facebook.com/adsmanager" target="_blank">Bekijk in Meta Ads Manager →</a>
+    `);
+
+  } catch (e) {
+    btn.disabled = false;
+    btn.innerHTML = '🚀 Campagne aanmaken in Meta';
+    btn.style.background = 'var(--brand)';
+    msg('eb', 'Fout: ' + e.message);
+  }
+}
+</script>
+</body>
+</html>
